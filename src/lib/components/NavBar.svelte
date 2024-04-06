@@ -9,11 +9,13 @@
 	function goLogin(): void {
 		goto("/login");
 	}
+
+	export let user: any;
 </script>
 
 <div class="flex items-center w-full justify-between px-10 h-28 border-b-2">
 	<img src={logo} class="w-20" alt="isitchocolate logo" />
-
+	<p>{user}</p>
 	<div>
 		<Button on:click={goRegister} size="lg" variant="outline">
 			<p class="text-lg">Sign up</p>
