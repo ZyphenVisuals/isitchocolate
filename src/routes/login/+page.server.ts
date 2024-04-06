@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types.js";
-import { fail } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms";
+import { fail, redirect } from "@sveltejs/kit";
+import { message, setError, superValidate } from "sveltekit-superforms";
 import { formSchema } from "./schema";
 import { zod } from "sveltekit-superforms/adapters";
 
@@ -20,8 +20,15 @@ export const actions: Actions = {
 			});
 		}
 
-		return {
-			form,
-		};
+		try {
+			await locals.pb
+				.collection("users")
+				.authWithPassword(form.data.username, form.data.password);
+		} catch (err) {
+			console.log(err);
+			return message(form, "Incorrect login", { status: 401 });
+		}
+
+		redirect(307, "/");
 	},
 };

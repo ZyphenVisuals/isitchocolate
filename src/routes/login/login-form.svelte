@@ -15,7 +15,7 @@
 		validators: zodClient(formSchema),
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, message } = form;
 </script>
 
 <form method="POST" use:enhance>
@@ -34,4 +34,7 @@
 		<Form.FieldErrors />
 	</Form.Field>
 	<Form.Button class="mt-2">Submit</Form.Button>
+	{#if $message}
+		<p class="text-destructive">{$message}</p>
+	{/if}
 </form>

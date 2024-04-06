@@ -11,7 +11,9 @@ export const handle = async ({
 	event.locals.pb = new PocketBase(
 		"https://isitchocolate.pocketbase.trinitystudios.xyz"
 	);
-	event.locals.pb.authStore.loadFromCookie(event.headers?.get("cookie") || "");
+	event.locals.pb.authStore.loadFromCookie(
+		event.request.headers?.get("cookie") || ""
+	);
 
 	if (event.locals.pb.authStore.isValid) {
 		event.locals.user = serializeNonPOJOs(event.locals.pb.authStore.model);

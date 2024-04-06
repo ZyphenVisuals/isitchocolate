@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import NavBar from "$lib/components/NavBar.svelte";
 	import { ModeWatcher } from "mode-watcher";
 	import "../app.pcss";
