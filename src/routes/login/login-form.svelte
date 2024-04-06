@@ -33,8 +33,11 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button class="mt-2">Submit</Form.Button>
+	<Form.Button
+		class="mt-4 flex mx-auto text-base bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black"
+		>Submit</Form.Button
+	>
 	{#if $message}
-		<p class="text-destructive">{$message}</p>
+		<p class="text-destructive text-lg">{$message}</p>
 	{/if}
 </form>

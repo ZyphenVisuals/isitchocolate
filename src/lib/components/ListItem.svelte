@@ -6,9 +6,9 @@
 </script>
 
 <div
-	class="mt-6 w-4/5 mx-auto flex justify-between py-[10px] px-4 rounded-md border-2"
+	class="mt-6 w-3/5 mx-auto flex justify-between py-[18px] px-4 rounded-2xl border-2"
 >
-	<img src="" alt="app logo" />
+	<img src="https://www.reddit.com/favicon.ico" alt="app logo" />
 	<p>{name}</p>
 	<State {status}></State>
 	<p>CAHRT</p>

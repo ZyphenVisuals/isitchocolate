@@ -3,12 +3,19 @@
 	import { buttonVariants } from "$lib/components/ui/button";
 	import * as Dialog from "$lib/components/ui/dialog/index";
 	import SettingsForm from "./app-form.svelte";
+	import ListItem from "$lib/components/ListItem.svelte";
 	export let data: PageData;
 </script>
 
+<ListItem name="dhgagd" status="DOWN"></ListItem>
 <div class="h-[calc(100vh-112px)] flex justify-around items-center">
 	<Dialog.Root>
-		<Dialog.Trigger class={buttonVariants({ variant: "default" })}
+		<Dialog.Trigger
+			class={buttonVariants({
+				variant: "default",
+				class:
+					"bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black text-base",
+			})}
 			>Add app
 		</Dialog.Trigger>
 		<Dialog.Content>

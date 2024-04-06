@@ -53,10 +53,13 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button class="mt-2">Sign up</Form.Button>
+	<Form.Button
+		class="mt-4 flex text-base mx-auto bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black"
+		>Sign up</Form.Button
+	>
 	{#if $message}
 		<Alert.Root
-			class="mt-4 bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black"
+			class="mt-4 flex mx-auto justify-center bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black"
 		>
 			<Alert.Title>Success!</Alert.Title>
 			<Alert.Description>{$message}</Alert.Description>

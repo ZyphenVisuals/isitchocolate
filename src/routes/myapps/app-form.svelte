@@ -47,5 +47,8 @@
 		</Form.Control>
 		<Form.FieldErrors />
 	</Form.Field>
-	<Form.Button class="mt-2">Submit</Form.Button>
+	<Form.Button
+		class="mt-4 flex mx-auto bg-[linear-gradient(90deg,#ff66c4,#ffde59)] text-black"
+		>Submit</Form.Button
+	>
 </form>

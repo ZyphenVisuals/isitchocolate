@@ -1,10 +1,13 @@
 import type { PageServerLoad, Actions } from "./$types.js";
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from "@sveltejs/kit";
 import { superValidate } from "sveltekit-superforms";
 import { formSchema } from "./schema";
 import { zod } from "sveltekit-superforms/adapters";
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals }) => {
+	if (!locals.user) {
+		redirect(307, "/");
+	}
 	return {
 		form: await superValidate(zod(formSchema)),
 	};
