@@ -1,8 +1,9 @@
 import type { PageServerLoad, Actions } from "./$types.js";
 import { fail, error } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms";
+import { setError, superValidate } from "sveltekit-superforms";
 import { formSchema } from "./schema";
 import { zod } from "sveltekit-superforms/adapters";
+import { message } from "sveltekit-superforms";
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -12,7 +13,7 @@ export const load: PageServerLoad = async () => {
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const form = await superValidate(request, zod(formSchema));
+		let form = await superValidate(request, zod(formSchema));
 		if (!form.valid) {
 			return fail(400, {
 				form,
@@ -27,12 +28,16 @@ export const actions: Actions = {
 				passwordConfirm: form.data.passwordConfirmation,
 			});
 			await locals.pb.collection("users").requestVerification(form.data.email);
-		} catch (err) {
-			console.log("Error: ", err);
-			throw error(500, "Something went wrong.");
+		} catch (err: any) {
+			const errors = err.originalError.data.data;
+			console.log("Error: ", errors);
+			if (errors.email) setError(form, "email", errors.email.message);
+			if (errors.username) setError(form, "username", errors.username.message);
+			return {
+				form,
+			};
 		}
-		return {
-			form,
-		};
+
+		return message(form, "Check your email for confirmation.");
 	},
 };

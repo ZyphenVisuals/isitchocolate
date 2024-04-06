@@ -7,7 +7,9 @@ declare global {
 			user: any;
 			pb: any;
 		}
-		// interface PageData {}
+		interface PageData {
+			form: any;
+		}
 		// interface PageState {}
 		// interface Platform {}
 	}
