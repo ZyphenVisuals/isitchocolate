@@ -10,7 +10,7 @@
 		return "DOWN";
 	}
 
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 30; i++) {
 		let item: { status: "STABLE" | "UNSTABLE" | "DOWN"; time: Date } = {
 			status: getRandomStatus(),
 			time: new Date(Date.now() - 300000 * i),
