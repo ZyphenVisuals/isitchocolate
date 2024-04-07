@@ -7,7 +7,6 @@
 	export let data: PageData;
 </script>
 
-<ListItem name="dhgagd" status="DOWN"></ListItem>
 <div class="h-[calc(100vh-112px)] flex justify-around items-center">
 	<Dialog.Root>
 		<Dialog.Trigger
