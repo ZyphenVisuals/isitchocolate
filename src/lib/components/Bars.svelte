@@ -10,12 +10,17 @@
 		return "DOWN";
 	}
 
-	for (let i = 0; i < 30; i++) {
+	for (let i = 0; i < 20; i++) {
 		let item: { status: "STABLE" | "UNSTABLE" | "DOWN"; time: Date } = {
 			status: getRandomStatus(),
 			time: new Date(Date.now() - 300000 * i),
 		};
 		response[i] = item;
+	}
+
+	let padding: number[] = [];
+	for (let i = 0; i < 30 - response.length; i++) {
+		padding[i] = 1;
 	}
 </script>
 
@@ -58,5 +63,9 @@
 				</HoverCard.Content>
 			</HoverCard.Root>
 		{/if}
+	{/each}
+
+	{#each padding as x}
+		<div class="w-1 h-4 ml-1 bg-stone-600"></div>
 	{/each}
 </div>

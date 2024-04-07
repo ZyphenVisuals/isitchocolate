@@ -1,13 +1,19 @@
 <script lang="ts">
-	import type { PageData } from "./$types.js";
 	import { buttonVariants } from "$lib/components/ui/button";
 	import * as Dialog from "$lib/components/ui/dialog/index";
 	import SettingsForm from "./app-form.svelte";
 	import ListItem from "$lib/components/ListItem.svelte";
-	export let data: PageData;
+	export let data;
 </script>
 
-<div class="h-[calc(100vh-112px)] flex justify-around items-center">
+{#each data.res as app}
+	{#if app.user == data.user.id}
+		<a href="/app/{app.id}">
+			<ListItem appData={app}></ListItem>
+		</a>
+	{/if}
+{/each}
+<div class="flex justify-around items-center mt-4">
 	<Dialog.Root>
 		<Dialog.Trigger
 			class={buttonVariants({

@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types.js";
 import { fail, redirect } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms";
+import { message, superValidate } from "sveltekit-superforms";
 import { formSchema } from "./schema";
 import { zod } from "sveltekit-superforms/adapters";
 
@@ -8,8 +8,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		redirect(307, "/");
 	}
+	const res = await locals.pb.collection("apps").getFullList();
+
 	return {
 		form: await superValidate(zod(formSchema)),
+		res: res,
 	};
 };
 
@@ -24,8 +27,17 @@ export const actions: Actions = {
 
 		const favicon_url = form.data.public_url + "/favicon.ico";
 
-		return {
-			form,
+		const data = {
+			name: form.data.name,
+			description: form.data.description,
+			public_url: form.data.public_url,
+			health_url: form.data.health_url,
+			favicon_url: favicon_url,
+			user: locals.user.id,
 		};
+
+		await locals.pb.collection("apps").create(data);
+
+		return message(form, "App has been added!");
 	},
 };
