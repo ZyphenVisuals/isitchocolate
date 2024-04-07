@@ -1,5 +1,19 @@
 import PocketBase from "pocketbase";
 import { serializeNonPOJOs } from "$lib/pb_utils";
+/*import { AsyncTask, CronJob, Task, ToadScheduler } from "toad-scheduler";
+const scheduler = new ToadScheduler();
+const updateAll = new Task("update_all", () => {});
+
+const job = new CronJob(
+	{
+		cronExpression: "*/ /*5 * * * * *",
+	},
+	updateAll,
+	{
+		preventOverrun: true,
+	}
+);
+scheduler.addCronJob(job);*/
 
 export const handle = async ({
 	event,

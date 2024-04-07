@@ -11,5 +11,5 @@
 		<img src={appData.favicon_url} alt="app logo" class="w-8" />
 		<p class="ml-2">{appData.name}</p>
 	</div>
-	<Bars></Bars>
+	<Bars id={appData.id}></Bars>
 </div>

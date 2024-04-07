@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { onMount } from "svelte";
 	import State from "./State.svelte";
 	import * as HoverCard from "./ui/hover-card/index";
 	let response: { status: "STABLE" | "UNSTABLE" | "DOWN"; time: Date }[] = [];
+	export let id: string;
 
 	function getRandomStatus(): "STABLE" | "UNSTABLE" | "DOWN" {
 		let x = Math.random() * 3;
@@ -10,18 +12,31 @@
 		return "DOWN";
 	}
 
-	for (let i = 0; i < 30; i++) {
-		let item: { status: "STABLE" | "UNSTABLE" | "DOWN"; time: Date } = {
-			status: getRandomStatus(),
-			time: new Date(Date.now() - 300000 * i),
-		};
-		response[i] = item;
+	async function getStatus(id: string) {
+		const dataStream = await fetch("/getHistoricalData/" + id);
+		const data = await dataStream.json();
+		return data.items;
 	}
-
 	let padding: number[] = [];
-	for (let i = 0; i < 30 - response.length; i++) {
-		padding[i] = 1;
-	}
+
+	let logdata: any;
+
+	onMount(async () => {
+		logdata = await getStatus(id);
+
+		logdata.forEach((element: any) => {
+			response.push({
+				status: element.status,
+				time: new Date(element.created),
+			});
+		});
+
+		console.log(response);
+
+		for (let i = 0; i < 30 - response.length; i++) {
+			padding[i] = 1;
+		}
+	});
 </script>
 
 <div class="flex items-center flex-row-reverse">
@@ -64,7 +79,6 @@
 			</HoverCard.Root>
 		{/if}
 	{/each}
-
 	{#each padding as x}
 		<div class="w-1 h-4 ml-1 bg-stone-600"></div>
 	{/each}
