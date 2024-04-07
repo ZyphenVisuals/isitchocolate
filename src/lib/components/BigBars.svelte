@@ -12,7 +12,7 @@
 	}
 
 	async function getStatus(id: string) {
-		const dataStream = await fetch("/getHistoricalData/" + id);
+		const dataStream = await fetch("/getLongData/" + id);
 		const data = await dataStream.json();
 		return data.items;
 	}
@@ -21,19 +21,19 @@
 	onMount(async () => {
 		const data = await getStatus(id);
 
-		for (let i = 0; i < 30 - data.length; i++) {
+		for (let i = 0; i < 50 - data.length; i++) {
 			padding[i] = 1;
 		}
 	});
 </script>
 
-<div class="flex items-center flex-row-reverse">
+<div class="flex items-center flex-row-reverse justify-center">
 	{#await getStatus(id) then response}
 		{#each response as item}
 			{#if item.status == "STABLE"}
 				<HoverCard.Root
 					><HoverCard.Trigger>
-						<div class="w-1 h-4 ml-1 bg-green-800"></div>
+						<div class="w-2 h-6 ml-1 bg-green-800"></div>
 					</HoverCard.Trigger>
 					<HoverCard.Content>
 						<State status={item.status}></State>
@@ -45,7 +45,7 @@
 			{:else if item.status == "UNSTABLE"}
 				<HoverCard.Root
 					><HoverCard.Trigger>
-						<div class="w-1 h-4 ml-1 bg-yellow-600"></div>
+						<div class="w-2 h-6 ml-1 bg-yellow-600"></div>
 					</HoverCard.Trigger>
 					<HoverCard.Content>
 						<State status={item.status}></State>
@@ -57,7 +57,7 @@
 			{:else}
 				<HoverCard.Root
 					><HoverCard.Trigger>
-						<div class="w-1 h-4 ml-1 bg-red-600"></div>
+						<div class="w-2 h-6 ml-1 bg-red-600"></div>
 					</HoverCard.Trigger>
 					<HoverCard.Content>
 						<State status={item.status}></State>
@@ -70,6 +70,6 @@
 		{/each}
 	{/await}
 	{#each padding as x}
-		<div class="w-1 h-4 ml-1 bg-stone-600"></div>
+		<div class="w-2 h-6 ml-1 bg-stone-600"></div>
 	{/each}
 </div>
